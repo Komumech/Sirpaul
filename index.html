@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SirPaul | Premium Shoemakers</title>
+    <title>PhilPaul | Premium Shoes</title>
+    <link rel="stylesheet" href="/styles/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+        :root {
+            --primary-bg: #ffffff;
+            --accent-green: #1a3a32;
+            --accent-gold: #b08d57;
+            --text-charcoal: #1a1a1a;
+            --price-bg: #ffffff;
+        }
 
-        /* 1. The White Top Bar (Always stays at very top) */
+        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--primary-bg); overflow-x: hidden; scroll-behavior: smooth; color: var(--text-charcoal); }
+
+        /* 1. Top Bar */
         .top-announcement {
             background: #fff;
             color: #000;
@@ -25,11 +34,13 @@
             border-bottom: 1px solid #eee;
         }
         .top-announcement .center-promo { flex-grow: 1; text-align: center; }
+        .top-announcement a { color: inherit; text-decoration: none; transition: color 0.3s; cursor: pointer; }
+        .top-announcement a:hover { color: var(--accent-gold); }
 
-        /* 2. SMART HEADER (Hides on scroll down, shows on scroll up) */
+        /* 2. Smart Header */
         header {
             position: fixed;
-            top: 35px; /* Sits below the top bar initially */
+            top: 35px;
             left: 0;
             width: 100%;
             z-index: 1001;
@@ -40,98 +51,93 @@
             color: #fff;
             box-sizing: border-box;
             background: transparent;
-            transition: top 0.4s ease-in-out, background 0.3s ease;
+            transition: top 0.4s ease-in-out, background 0.3s ease, color 0.3s ease;
         }
-
-        /* Classes for JS to toggle */
         header.nav-hidden { top: -120px; }
-        header.nav-scrolled { background: rgba(247, 247, 247, 0.868); top: 0; padding: 15px 40px; }
-        header.nav-scrolled .logo, header.nav-scrolled .nav-right, header.nav-scrolled { color: #000; }
+        header.nav-scrolled { background: rgba(255, 255, 255, 0.95); top: 0; padding: 15px 40px; color: #000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-left { display: flex; gap: 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
-        .logo {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            line-height: 0.8;
-            letter-spacing: 1px;
-        }
+        .logo { text-align: center; font-family: 'Playfair Display', serif; font-size: 28px; line-height: 0.8; letter-spacing: 1px; text-decoration: none; color: inherit; display: block; }
         .logo span { display: block; font-size: 9px; font-family: 'Montserrat'; letter-spacing: 4px; margin-top: 5px; font-weight: 300; }
-        .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 20px; font-size: 11px; letter-spacing: 2px; }
+        .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+        header a { color: inherit; text-decoration: none; transition: color 0.3s; cursor: pointer; }
+        header a:hover { color: var(--accent-gold); }
 
-        /* 3. Hero Slider Section */
-        .hero {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            color: #fff;
-            text-align: center;
-        }
+        /* 3. Hero Slider */
+        .hero { position: relative; height: 100vh; width: 100%; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; color: #fff; text-align: center; }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; background-size: cover; background-position: center; z-index: 1; }
         .slide.active { opacity: 1; }
         .slide::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
         .hero-content { position: relative; z-index: 10; padding-bottom: 100px; }
         .hero-title { font-family: 'Playfair Display', serif; font-size: 55px; font-style: italic; margin-bottom: 40px; font-weight: 400; }
-        .hero-cta { font-size: 12px; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #fff; padding-bottom: 8px; }
+        .hero-cta { font-size: 12px; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #fff; padding-bottom: 8px; transition: color 0.3s, border-color 0.3s; }
+        .hero-cta:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
 
-        /* Navigation Arrows */
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 20px;
-            transition: 0.3s;
-        }
+        .arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 100; background: none; border: none; cursor: pointer; padding: 20px; transition: 0.3s; }
         .arrow svg { width: 40px; height: 40px; stroke: #fff; stroke-width: 1; fill: none; transition: 0.3s; }
         .arrow:hover svg { stroke-width: 2; transform: scale(1.1); }
         .prev { left: 30px; }
         .next { right: 30px; }
 
-        /* 4. SEASONAL STYLES (Based on Loake reference) */
-        .seasonal-section { background: #fff; text-align: center; }
+        /* 4. Seasonal Styles */
+        .seasonal-section { background: #fff; text-align: center; margin-top: 100px; padding-bottom: 50px; }
         .seasonal-intro { margin-bottom: 60px; }
-        .seasonal-intro .small-title { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #b08d57; font-weight: 600; margin-bottom: 10px; display: block; }
-        .seasonal-intro h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; color: #1a3a32; margin: 0; }
+        .seasonal-intro .small-title { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-gold); font-weight: 600; margin-bottom: 10px; display: block; }
+        .seasonal-intro h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; color: var(--accent-green); margin: 0; }
         .seasonal-intro h2 em { font-style: italic; }
 
-        .seasonal-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 10px 40px;
-        }
-        .large{
-            height: 80vh;
-        }
-        .seasonal-item { text-decoration: none; color: #000; transition: 0.3s; }
-        .seasonal-img { width: 100%; aspect-ratio: 1/1.2; object-fit: cover; margin-bottom: 20px; transition: 0.5s; }
-        .seasonal-item:hover .seasonal-img { opacity: 0.8; }
+        .seasonal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1400px; margin: 0 auto; padding: 10px 40px; }
+        
+        /* Shared Image & Price Tag Logic */
+        .img-wrapper { position: relative; overflow: hidden; margin-bottom: 20px; }
+        .price-tag { position: absolute; bottom: 20px; right: -120px; background: var(--price-bg); padding: 18px 18px; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--text-charcoal); transition: 0.4s ease; box-shadow: -5px 5px 15px rgba(0,0,0,0.05); z-index: 5; }
+        
+        /* Seasonal Items */
+        .seasonal-item { text-decoration: none; color: #000; transition: 0.3s; display: block; }
+        .seasonal-img { width: 100%; aspect-ratio: 1/1.2; object-fit: cover; transition: 0.5s; display: block; }
+        .seasonal-item:hover .price-tag { right: 0; }
+        .seasonal-item:hover .seasonal-img { transform: scale(1.05); opacity: 0.9; }
         .seasonal-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
 
+        /* Large Banner */
+        .large { height: 80vh; background-repeat: no-repeat; background-size: cover; background-position: bottom; display: flex; flex-direction: column; width: 100vw; justify-content: flex-end; align-items: flex-start; margin-top: 5rem; }
+        .large-content { margin: 0 4rem 4rem; color: #fff; text-align: left; }
+        .large-subtitle { text-transform: uppercase; font-size: 11px; letter-spacing: 2px; }
+        .large-title { font-family: 'Playfair Display', serif; font-size: 40px; font-style: italic; margin-top: 10px; font-weight: 400; }
+        
+        /* 5. Care Section */
+        .care-section { padding: 80px 40px; background: #fafafa; }
+        .care-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .care-item { text-align: center; }
+        .care-img-container { width: 100%; aspect-ratio: 1/1; }
+        .care-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
+        .care-item .price-tag { right: -250px; }
+        .care-item:hover .price-tag { right: 0; }
+        .care-item:hover .care-img { transform: scale(1.05); }
+        .care-item h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 400; color: var(--accent-green); margin-bottom: 15px; }
+        .care-item p { font-size: 13px; line-height: 1.6; color: #666; max-width: 350px; margin: 0 auto; }
+
+        /* 6. Footer Section */
+        .footer { background: #eee; color: #fff; padding: 80px 40px 20px; font-size: 13px; margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; margin-bottom: 25px; color: var(--accent-gold); letter-spacing: 1px; }
+        .footer-col p, .footer-col a { color: #363636; text-decoration: none; line-height: 1.8; display: block; margin-bottom: 12px; transition: color 0.3s; }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom { text-align: center; padding-top: 25px; color: #1c1c1c; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Mobile Adjustments */
         @media (max-width: 900px) {
-            .seasonal-grid { grid-template-columns: repeat(2, 1fr); }
-            header { top: 0; padding: 15px 20px; background: #000; }
-            .nav-left, .nav-right { display: none; }
+            .seasonal-grid { grid-template-columns: repeat(2, 1fr); padding: 10px 20px; }
+            .care-grid, .footer-grid { grid-template-columns: 1fr; }
+            header { top: 0; padding: 15px 20px; background: #000; color: #fff; }
+            .nav-left, .nav-right, .top-announcement { display: none; }
             .hero-title { font-size: 32px; }
             .arrow svg { width: 30px; }
             .prev { left: 10px; }
-            .large{
-                height: 60vh;
-            }
             .next { right: 10px; }
-            .top-announcement{
-                display: none;
-            }
+            .large { height: 70vh; }
+            .large-content { margin: 0 2rem 2rem; }
+            .large-title { font-size: 30px; }
+            .footer { padding: 60px 20px 20px; text-align: center; }
         }
     </style>
 </head>
@@ -139,17 +145,17 @@
 
     <div class="top-announcement">
         <div class="center-promo">VISIT US AT GBODE PLAZA TODAY & ENJOY EXCLUSIVE QUALITY</div>
-        <div>STORE LOCATOR</div>
+        <div><a href="#contact">STORE LOCATOR</a></div>
     </div>
 
     <header id="mainHeader">
         <div class="nav-left">
-            <span>New Arrivals</span>
-            <span>Shoes</span>
+            <a href="#new-arrivals">New Arrivals</a>
+            <a href="#shop">Shoes</a>
         </div>
-        <div class="logo"> SirPaul <span>FOOTWEAR</span> </div>
+        <a href="#" class="logo"> PhilPaul <span>FOOTWEAR</span> </a>
         <div class="nav-right">
-            <span>Contact</span>
+            <a href="#contact">Contact</a>
         </div>
     </header>
 
@@ -172,39 +178,213 @@
         </div>
     </section>
 
-    <section class="seasonal-section" id="shop" style="margin-top: 100px;">
+    <section class="seasonal-section" id="shop">
         <div class="seasonal-intro">
             <span class="small-title">Seasonal Styles</span>
             <h2>Timeless Pieces for <em>Every Occasion</em></h2>
         </div>
 
-        <div class="seasonal-grid" >
+        <div class="seasonal-grid">
             <a href="https://wa.me/2348025270681" class="seasonal-item">
-                <img src="img6.png" class="seasonal-img" alt="Bespoke Pearl Boots">
+                <div class="img-wrapper">
+                    <img src="img6.png" class="seasonal-img" alt="Bespoke Pearl Boots">
+                    <div class="price-tag">₦45,000</div>
+                </div>
                 <div class="seasonal-label">Bespoke Pearl Boots</div>
             </a>
+            
             <a href="https://wa.me/2348025270681" class="seasonal-item">
-                <img src="img2.avif" class="seasonal-img" alt="Lagos Sourced">
-                <div class="seasonal-label">Nike Air Force One</div>
+                <div class="img-wrapper">
+                    <img src="img2.avif" class="seasonal-img" alt="NF1">
+                    <div class="price-tag">₦38,000</div>
+                </div>
+                <div class="seasonal-label">NF1</div>
             </a>
+            
             <a href="https://wa.me/2348025270681" class="seasonal-item">
-                <img src="img5.png" class="seasonal-img" alt="Pastel Shadows">
+                <div class="img-wrapper">
+                    <img src="img5.png" class="seasonal-img" alt="Seasonal Sneakers">
+                    <div class="price-tag">₦32,500</div>
+                </div>
                 <div class="seasonal-label">Seasonal Sneakers</div>
             </a>
-                     <a href="https://wa.me/2348025270681" class="seasonal-item">
-                <img src="img7.png" class="seasonal-img" alt="Pastel Shadows" height="120%">
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img7.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
             </a>
         </div>
 
-        <div class="large" style="background-image: url('img12.png'); background-repeat: no-repeat; background-size: cover; background-position: bottom;  display: flex; flex-direction: column; width: 100vw;  justify-self: left; margin-top: 5rem;">
-             <p style="font-size: 3rem; color: #fff; justify-self: baseline; margin: auto 4rem 2rem;">
-                <span style="text-transform: uppercase; font-size: 11px; letter-spacing: 2px;">Classic designs</span>
-                <br>
-                <span class="hero-title" style="font-size: 2.5rem;">Men's Sandals</span>
-                
-             </p>
+        <div class="large" id="new-arrivals" style="background-image: url('img16.png');">
+            <div class="large-content">
+                <span class="large-subtitle">Sleek designs</span>
+                <div class="large-title">Sneakers</div>
+            </div>
+        </div>
+
+        <div class="seasonal-grid" style="margin-top: 7rem; margin-bottom: 6rem;">
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img17.png" class="seasonal-img" alt="Bespoke Pearl Boots">
+                    <div class="price-tag">₦45,000</div>
+                </div>
+                <div class="seasonal-label">Bespoke Pearl Boots</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img20.png" class="seasonal-img" alt="NF1">
+                    <div class="price-tag">₦38,000</div>
+                </div>
+                <div class="seasonal-label">NF1</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img19.png" class="seasonal-img" alt="Seasonal Sneakers">
+                    <div class="price-tag">₦32,500</div>
+                </div>
+                <div class="seasonal-label">Seasonal Sneakers</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img18.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img21.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img22.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img23.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img24.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img25.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img26.png" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img27.jpeg" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+            
+            <a href="https://wa.me/2348025270681" class="seasonal-item">
+                <div class="img-wrapper">
+                    <img src="img28.jpeg" class="seasonal-img" alt="Classic Design" style="height: 120%;">
+                    <div class="price-tag">₦29,000</div>
+                </div>
+                <div class="seasonal-label">Classic Design</div>
+            </a>
+        </div>
+
+        <div class="large" style="background-image: url('img12.png');">
+            <div class="large-content">
+                <span class="large-subtitle">Classic designs</span>
+                <div class="large-title">Men's Sandals</div>
+            </div>
         </div>
     </section>
+
+    <section class="care-section" id="care">
+        <div class="care-grid">
+            <div class="care-item">
+                <div class="img-wrapper care-img-container">
+                    <img src="img14.png" alt="Repair Service" class="care-img">
+                    <div class="price-tag">From ₦5,000</div>
+                </div>
+                <h3>Repair Service</h3>
+                <p>Built to endure, PhilPaul shoes can be repaired to extend their wear. Expertly handled in Lagos.</p>
+            </div>
+
+            <div class="care-item">
+                <div class="img-wrapper care-img-container">
+                    <img src="img13.png" alt="Leather Belts" class="care-img">
+                    <div class="price-tag">₦15,000 per item</div>
+                </div>
+                <h3>Premium Accessories</h3>
+                <p>Crafted in fine leather, our belts are available in smooth, suede, and textured finishes.</p>
+            </div>
+            
+            <div class="care-item">
+                <div class="img-wrapper care-img-container">
+                    <img src="img15.png" alt="Leather Belts" class="care-img">
+                    <div class="price-tag">₦15,000</div>
+                </div>
+                <h3>Premium Wallets</h3>
+                <p>Complement your footwear with our hand-stitched, durable leather wallets.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="justify-self: left;"> PhilPaul <span style="justify-self: left;">FOOTWEAR</span> </a>
+                <p>Crafting timeless, premium bespoke footwear designed for elegance and built for endurance. Elevate your everyday style with our exclusive collections.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="#new-arrivals">New Arrivals</a>
+                <a href="#shop">All Shoes</a>
+                <a href="#care">Shoe Care & Repairs</a>
+            </div>
+            <div class="footer-col">
+                <h4>Visit & Connect</h4>
+                <p><strong>Store:</strong> Gbode Plaza, Lagos, Nigeria</p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/2348025270681" style="display:inline; color:var(--accent-gold);">+234 802 527 0681</a></p>
+                <p><strong>Hours:</strong> Mon - Sat, 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 PhilPaul Footwear. All Rights Reserved.
+        </div>
+    </footer>
 
     <script>
         /* SMART NAVBAR LOGIC */
