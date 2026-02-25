@@ -137,7 +137,7 @@
             .large { height: 70vh; }
             .large-content { margin: 0 2rem 2rem; }
             .large-title { font-size: 30px; }
-            .footer { padding: 60px 20px 20px; text-align: center; }
+            .footer { padding: 60px 20px 20px; text-align: left; }
         }
     </style>
 </head>
@@ -338,48 +338,49 @@
         </div>
     </section>
 
-    <section class="care-section" id="care">
-        <div class="care-grid">
-            <div class="care-item">
-                <div class="img-wrapper care-img-container">
-                    <img src="img14.png" alt="Exquisite Craftsmanship" class="care-img">
-                    <div class="price-tag">₦40,000</div>
-                </div>
-                <h3>Exquisite Craftsmanship</h3>
-                <p>Our sandals are a testament to superior artistry, hand-crafted with precision to deliver an exclusive, high-end finish.</p>
+<section class="care-section" id="care">
+    <div class="care-grid">
+        <div class="care-item">
+            <div class="img-wrapper care-img-container">
+                <img src="img14.png" alt="Curated Excellence" class="care-img">
+                <div class="price-tag">₦40,000</div>
             </div>
-
-            <div class="care-item">
-                <div class="img-wrapper care-img-container">
-                    <img src="img13.png" alt="Premium Leather" class="care-img">
-                    <div class="price-tag">₦40,000</div>
-                </div>
-                <h3>Premium Leather</h3>
-                <p>We use only the finest, ethically sourced leather, ensuring your sandals are not just stylish but built to last a lifetime.</p>
-            </div>
-            
-            <div class="care-item">
-                <div class="img-wrapper care-img-container">
-                    <img src="img15.png" alt="Timeless Elegance" class="care-img">
-                    <div class="price-tag">₦40,000</div>
-                </div>
-                <h3>Timeless Elegance</h3>
-                <p>Designed for the elite, our exclusive sandal collection offers unmatched comfort and a sophisticated aesthetic for any occasion.</p>
-            </div>
+            <h3>Curated Selection</h3>
+            <p>We hand-pick every pair in our collection, ensuring only the most exclusive designs and high-end finishes make the cut.</p>
         </div>
-    </section>
 
-    <footer class="footer" id="contact">
+        <div class="care-item">
+            <div class="img-wrapper care-img-container">
+                <img src="img13.png" alt="Authentic Quality" class="care-img">
+                <div class="price-tag">₦40,000</div>
+            </div>
+            <h3>Premium Standards</h3>
+            <p>Sourced from the world's finest labels, our footwear features top-tier materials designed for durability and a luxury feel.</p>
+        </div>
+        
+        <div class="care-item">
+            <div class="img-wrapper care-img-container">
+                <img src="img15.png" alt="Elite Style" class="care-img">
+                <div class="price-tag">₦40,000</div>
+            </div>
+            <h3>Sophisticated Style</h3>
+            <p>Step into the elite tier with a collection that balances modern trends with timeless comfort for any high-profile occasion.</p>
+        </div>
+    </div>
+</section>
+
+
+<footer class="footer" id="contact">
         <div class="footer-grid">
             <div class="footer-col">
                 <a href="#" class="logo" style="justify-self: left;"> PhilPaul <span style="justify-self: left;">FOOTWEAR</span> </a>
-                <p>Crafting timeless, premium bespoke footwear designed for elegance and built for endurance. Elevate your everyday style with our exclusive collections.</p>
+                <p>Your premier destination for luxury footwear. We bring you a curated collection of elite styles designed for elegance and built for endurance.</p>
             </div>
             <div class="footer-col">
                 <h4>Explore</h4>
                 <a href="#new-arrivals">New Arrivals</a>
-                <a href="#shop">All Shoes</a>
-                <a href="#care">Shoe Care & Repairs</a>
+                <a href="#shop">Shop All</a>
+                <a href="#care">Quality & Care</a>
             </div>
             <div class="footer-col">
                 <h4>Visit & Connect</h4>
@@ -389,7 +390,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2026 PhilPaul Footwear. All Rights Reserved.
+            &copy; 2026 PhilPaul Footwear. All Rights Reserved. Designed by Komumech
         </div>
     </footer>
 
@@ -430,6 +431,24 @@
         }
 
         let autoSlideInterval = setInterval(() => moveSlide(1), 5000);
+
+        /* DYNAMIC WHATSAPP PRODUCT LINKS */
+        document.addEventListener("DOMContentLoaded", function() {
+            const productLinks = document.querySelectorAll('.seasonal-item');
+            productLinks.forEach(link => {
+                const img = link.querySelector('.seasonal-img');
+                const label = link.querySelector('.seasonal-label');
+                const originalHref = link.getAttribute('href');
+
+                if (img && label && originalHref && originalHref.includes('wa.me')) {
+                    const productName = label.textContent.trim();
+                    const imageUrl = img.src;
+                    const message = `Hello, I am interested in the ${productName}. Image: ${imageUrl}`;
+                    const separator = originalHref.includes('?') ? '&' : '?';
+                    link.href = `${originalHref}${separator}text=${encodeURIComponent(message)}`;
+                }
+            });
+        });
     </script>
 </body>
 </html>
